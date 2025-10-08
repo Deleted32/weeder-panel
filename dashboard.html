@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weeder Panel — Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="panel-body">
+  <div class="sidebar">
+    <h2>Weeder</h2>
+    <ul>
+      <li class="active" onclick="showPage('servers')">Sunucular</li>
+      <li onclick="showPage('console')">Konsol</li>
+      <li onclick="showPage('settings')">Ayarlar</li>
+      <li onclick="logout()">Çıkış</li>
+    </ul>
+  </div>
 
+  <div class="main">
+    <div class="topbar">
+      <h3 id="pageTitle">Sunucular</h3>
+      <span id="userDisplay"></span>
+    </div>
+
+    <!-- SUNUCULAR -->
+    <div id="servers" class="page">
+      <div class="server-card">
+        <h4>Minecraft Sunucusu #1</h4>
+        <p>Durum: <span class="online">Online</span></p>
+        <button class="btn">Konsolu Aç</button>
+      </div>
+
+      <div class="server-card">
+        <h4>Discord Bot</h4>
+        <p>Durum: <span class="offline">Offline</span></p>
+        <button class="btn">Başlat</button>
+      </div>
+    </div>
+
+    <!-- KONSOL -->
+    <div id="console" class="page" style="display:none;">
+      <div class="console-box" id="consoleOutput">
+        [13:21:07] Sunucu başlatılıyor...<br>
+        [13:21:09] Plugin yüklendi: Skript v2.7<br>
+        [13:21:12] Sunucu başarıyla başlatıldı ✅<br>
+      </div>
+      <input type="text" id="consoleInput" placeholder="Komut yaz..." onkeydown="if(event.key==='Enter') sendCommand()">
+    </div>
+
+    <!-- AYARLAR -->
+    <div id="settings" class="page" style="display:none;">
+      <h4>Panel Ayarları</h4>
+      <p>Bu demo sürümde ayarlar kaydedilmez, sadece görsel amaçlıdır.</p>
+      <label><input type="checkbox"> Karanlık tema aktif</label>
+    </div>
+  </div>
+
+  <script>
+    // Giriş kontrolü
+    const user = localStorage.getItem("weederUser");
+    if(!user) window.location.href = "index.html";
+    document.getElementById("userDisplay").textContent = user;
+
+    function logout(){
+      localStorage.removeItem("weederUser");
+      window.location.href = "index.html";
+    }
+
+    function showPage(id){
+      document.querySelectorAll('.page').forEach(p => p.style.display='none');
+      document.getElementById(id).style.display = 'block';
+      document.getElementById('pageTitle').textContent = 
+        id === 'servers' ? 'Sunucular' : id === 'console' ? 'Konsol' : 'Ayarlar';
+      document.querySelectorAll('.sidebar ul li').forEach(li => li.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function sendCommand(){
+      const input = document.getElementById('consoleInput');
+      const output = document.getElementById('consoleOutput');
+      const cmd = input.value.trim();
+      if(!cmd) return;
+      output.innerHTML += `<br>[Komut] ${cmd}`;
+      input.value = '';
+      output.scrollTop = output.scrollHeight;
+    }
+  </script>
+</body>
+</html>
