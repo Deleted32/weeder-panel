@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weeder Panel — Giriş</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-box">
+    <h1>Weeder Panel</h1>
+    <p class="subtitle">Sunucularına güç sen ver ⚡</p>
+    <input type="text" id="user" placeholder="Kullanıcı adı">
+    <input type="password" id="pass" placeholder="Şifre">
+    <button onclick="login()">Giriş Yap</button>
+    <p class="small">Demo giriş: admin / 1234</p>
+  </div>
 
+  <script>
+    function login(){
+      const u = document.getElementById('user').value;
+      const p = document.getElementById('pass').value;
+      if(u === "admin" && p === "1234"){
+        localStorage.setItem("weederUser", u);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Hatalı giriş!");
+      }
+    }
+  </script>
+</body>
+</html>
