@@ -1,13 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <title>İlk Sitem</title>
+  <meta charset="UTF-8">
+  <title>İndir Merkezi</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f172a, #1e3a8a, #7c3aed);
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      animation: slideIn 1s ease-out forwards;
+      transform: translateX(200px);
+      opacity: 0;
+    }
+
+    @keyframes slideIn {
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 30px;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    /* Glow efekti */
+    .btn::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 300%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      transition: 0.5s;
+      opacity: 0.5;
+    }
+
+    .btn:hover::before {
+      width: 200%;
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(167, 139, 250, 0.7);
+    }
+
+    /* Fade in animasyonu */
+    .btn {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .btn:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .btn:nth-child(3) {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+  </style>
 </head>
 <body>
 
-<h1>Site çalışıyor 🚀</h1>
+  <div class="container">
+    <h1>İndir Merkezi 🚀</h1>
 
-<a href="buneboyle.zip" download>Dosya 1 indir</a><br><br>
+    <a href="buneboyle" download class="btn">📦 Dosya 1 indir</a>
+
+  </div>
 
 </body>
 </html>
