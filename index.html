@@ -33,60 +33,46 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ⭐ YILDIZLAR */
+/* ⭐ DAHA DOĞAL YILDIZ */
 .stars {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: transparent;
 }
 
-.stars::before, .stars::after {
+.stars::before {
   content: "";
   position: absolute;
-  width: 2px;
-  height: 2px;
+  width: 1px;
+  height: 1px;
   background: white;
   box-shadow:
-    100px 200px white,
-    300px 400px white,
-    500px 100px white,
-    800px 300px white,
-    1200px 150px white,
-    600px 500px white,
-    900px 600px white,
-    200px 700px white,
-    1400px 400px white,
-    1600px 200px white;
-  animation: moveStars 60s linear infinite;
-  opacity: 0.6;
+    50px 100px white, 200px 300px white, 400px 150px white,
+    600px 250px white, 800px 100px white, 1000px 300px white,
+    1200px 200px white, 1400px 350px white, 1600px 150px white;
+  animation: starsMove 80s linear infinite;
+  opacity: 0.7;
 }
 
-.stars::after {
-  animation-duration: 100s;
-  opacity: 0.4;
-}
-
-@keyframes moveStars {
+@keyframes starsMove {
   from { transform: translateY(0); }
-  to { transform: translateY(-1000px); }
+  to { transform: translateY(-1200px); }
 }
 
-/* LOGO (BÜYÜK + ARKA PLANSIZ GİBİ) */
+/* 🐺 LOGO (ŞEFFAF + BÜYÜK) */
 .logo {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 120px; /* büyüttük */
+  top: 10px;
+  left: 10px;
+  width: 180px;
   cursor: pointer;
   transition: 0.3s;
-  filter: drop-shadow(0 0 10px rgba(167,139,250,0.4));
+  filter: drop-shadow(0 0 15px rgba(167,139,250,0.5));
 }
 
-/* hover */
 .logo:hover {
   transform: scale(1.1) rotate(3deg);
-  filter: drop-shadow(0 0 20px rgba(167,139,250,0.7));
+  filter: drop-shadow(0 0 25px rgba(167,139,250,0.8));
 }
 
 /* Container */
@@ -161,15 +147,16 @@ h1 {
 
 <div class="stars"></div>
 
-<!-- LOGO -->
-<img src="https://i.imgur.com/9Oobw1q_d.webp?maxwidth=1520&fidelity=grand" 
+<!-- ŞEFFAF KURT -->
+<img src="https://pngimg.com/d/wolf_PNG23233.png" 
      class="logo"
      onclick="location.reload()">
 
 <div class="container">
   <h1>İndir Merkezi 🚀</h1>
 
-  <a href="buneboyle.zip" download class="btn">📦 Dosya 1 indir</a>
+  <a href="dosya1.zip" download class="btn">📦 Dosya 1 indir</a>
+  <a href="dosya2.pdf" download class="btn">📄 Dosya 2 indir</a>
 </div>
 
 </body>
