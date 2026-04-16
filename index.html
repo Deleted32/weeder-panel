@@ -22,7 +22,6 @@ body {
   color: white;
   overflow: hidden;
 
-  /* KOYU ama animasyonlu gradient */
   background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
   background-size: 400% 400%;
   animation: gradientBG 18s ease infinite;
@@ -34,61 +33,60 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Arka plan glow (daha az parlak) */
-body::before {
-  content: "";
+/* ⭐ YILDIZLAR */
+.stars {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(167,139,250,0.15), transparent);
-  top: -150px;
-  left: -150px;
-  filter: blur(120px);
+  width: 100%;
+  height: 100%;
+  background: transparent;
 }
 
-body::after {
+.stars::before, .stars::after {
   content: "";
   position: absolute;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(56,189,248,0.15), transparent);
-  bottom: -150px;
-  right: -150px;
-  filter: blur(120px);
+  width: 2px;
+  height: 2px;
+  background: white;
+  box-shadow:
+    100px 200px white,
+    300px 400px white,
+    500px 100px white,
+    800px 300px white,
+    1200px 150px white,
+    600px 500px white,
+    900px 600px white,
+    200px 700px white,
+    1400px 400px white,
+    1600px 200px white;
+  animation: moveStars 60s linear infinite;
+  opacity: 0.6;
 }
 
-/* LOGO */
+.stars::after {
+  animation-duration: 100s;
+  opacity: 0.4;
+}
+
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
+/* LOGO (BÜYÜK + ARKA PLANSIZ GİBİ) */
 .logo {
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 70px;
+  width: 120px; /* büyüttük */
   cursor: pointer;
-  border-radius: 12px;
   transition: 0.3s;
+  filter: drop-shadow(0 0 10px rgba(167,139,250,0.4));
 }
 
-/* Logo hover efekti */
+/* hover */
 .logo:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 0 20px rgba(167,139,250,0.4);
-}
-
-/* Logo arka glow */
-.logo::after {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  border-radius: 15px;
-  background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
-  z-index: -1;
-  opacity: 0;
-  filter: blur(15px);
-  transition: 0.3s;
-}
-
-.logo:hover::after {
-  opacity: 1;
+  transform: scale(1.1) rotate(3deg);
+  filter: drop-shadow(0 0 20px rgba(167,139,250,0.7));
 }
 
 /* Container */
@@ -135,7 +133,6 @@ h1 {
   transition: 0.3s;
 }
 
-/* Hover ışık */
 .btn::before {
   content: "";
   position: absolute;
@@ -161,6 +158,8 @@ h1 {
 </style>
 </head>
 <body>
+
+<div class="stars"></div>
 
 <!-- LOGO -->
 <img src="https://i.imgur.com/9Oobw1q_d.webp?maxwidth=1520&fidelity=grand" 
