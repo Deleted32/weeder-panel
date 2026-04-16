@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>İndir Merkezi</title>
+<meta charset="UTF-8">
+<title>İndir Merkezi</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      overflow: hidden;
-  body {
+body {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -29,134 +22,157 @@
   color: white;
   overflow: hidden;
 
-body {
-  background: linear-gradient(135deg, #0f172a, #1e3a8a, #7c3aed);
+  /* KOYU ama animasyonlu gradient */
+  background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
+  background-size: 400% 400%;
+  animation: gradientBG 18s ease infinite;
 }
-    body::after {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(56,189,248,0.3), transparent);
-      bottom: -200px;
-      right: -200px;
-      filter: blur(100px);
-      animation: float 12s infinite alternate;
-    }
 
-    @keyframes float {
-      from { transform: translateY(0px); }
-      to { transform: translateY(50px); }
-    }
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    .container {
-      text-align: center;
-      backdrop-filter: blur(20px);
-      padding: 50px;
-      border-radius: 25px;
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 40px rgba(0,0,0,0.4);
-      animation: fadeUp 1s ease forwards;
-      opacity: 0;
-      transform: translateY(50px);
-    }
+/* Arka plan glow (daha az parlak) */
+body::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(167,139,250,0.15), transparent);
+  top: -150px;
+  left: -150px;
+  filter: blur(120px);
+}
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+body::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(56,189,248,0.15), transparent);
+  bottom: -150px;
+  right: -150px;
+  filter: blur(120px);
+}
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 30px;
-      background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+/* LOGO */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 70px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: 0.3s;
+}
 
-    .btn {
-      display: inline-block;
-      margin: 12px;
-      padding: 15px 35px;
-      font-size: 16px;
-      color: white;
-      text-decoration: none;
-      border-radius: 14px;
-      position: relative;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(15px);
-      transition: 0.3s;
-    }
+/* Logo hover efekti */
+.logo:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 20px rgba(167,139,250,0.4);
+}
 
-    /* Neon border efekti */
-    .btn::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 14px;
-      padding: 2px;
-      background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
-      -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: 0.3s;
-    }
+/* Logo arka glow */
+.logo::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 15px;
+  background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
+  z-index: -1;
+  opacity: 0;
+  filter: blur(15px);
+  transition: 0.3s;
+}
 
-    /* Glow swipe */
-    .btn::before {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 300%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
-      background: linear-gradient(90deg, #38bdf8, #a78bfa);
-      opacity: 0.4;
-      transition: 0.5s;
-    }
+.logo:hover::after {
+  opacity: 1;
+}
 
-    .btn:hover::before {
-      width: 220%;
-    }
+/* Container */
+.container {
+  text-align: center;
+  backdrop-filter: blur(20px);
+  padding: 50px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+  transform: translateY(50px);
+}
 
-    .btn:hover::after {
-      opacity: 1;
-    }
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .btn:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
-    }
+h1 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    /* Buton giriş animasyonu */
-    .btn {
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-    }
+/* BUTON */
+.btn {
+  display: inline-block;
+  margin: 12px;
+  padding: 15px 35px;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  transition: 0.3s;
+}
 
-    .btn:nth-child(2) { animation-delay: 0.4s; }
-    .btn:nth-child(3) { animation-delay: 0.7s; }
+/* Hover ışık */
+.btn::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 300%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: linear-gradient(90deg, #38bdf8, #a78bfa);
+  opacity: 0.3;
+  transition: 0.5s;
+}
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+.btn:hover::before {
+  width: 220%;
+}
 
-  </style>
+.btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 15px rgba(167,139,250,0.3);
+}
+
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>İndir Merkezi 🚀</h1>
+<!-- LOGO -->
+<img src="https://i.imgur.com/9Oobw1q_d.webp?maxwidth=1520&fidelity=grand" 
+     class="logo"
+     onclick="location.reload()">
 
-    <a href="buneboyle.zip" download class="btn">📦 Dosya 1 indir</a>
-  </div>
+<div class="container">
+  <h1>İndir Merkezi 🚀</h1>
+
+  <a href="dosya1.zip" download class="btn">📦 Dosya 1 indir</a>
+  <a href="dosya2.pdf" download class="btn">📄 Dosya 2 indir</a>
+</div>
 
 </body>
 </html>
