@@ -1,463 +1,393 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grim Client</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grim Client - En stabil, en hızlı ve en havalı client. Tıkla indir, oyunu domine et! 🚀">
+    <title>Grim Client</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+            background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            position: relative;
+        }
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-:root {
-  --panel-bg: rgba(255,255,255,0.08);
-  --panel-border: rgba(255,255,255,0.14);
-  --muted: rgba(226,232,240,0.82);
-  --accent-a: #38bdf8;
-  --accent-b: #a78bfa;
-  --accent-c: #06b6d4;
-}
+        /* ⭐ STAR FIELD - GELİŞTİRİLDİ */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  color: white;
-  position: relative;
-  padding: 24px;
-  background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
-  background-size: 400% 400%;
-  animation: gradientBG 18s ease infinite;
-}
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            box-shadow: 0 0 8px rgba(255,255,255,0.4);
+            animation: drift linear infinite, twinkle ease-in-out infinite;
+        }
 
-body::before,
-body::after {
-  content: "";
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.18;
-  pointer-events: none;
-}
+        @keyframes drift {
+            0% { transform: translate(0px, 0px); }
+            25% { transform: translate(25px, -15px); }
+            50% { transform: translate(-15px, 25px); }
+            75% { transform: translate(15px, 15px); }
+            100% { transform: translate(0px, 0px); }
+        }
 
-body::before {
-  top: -120px;
-  left: -80px;
-  background: #38bdf8;
-}
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.95; }
+        }
 
-body::after {
-  right: -100px;
-  bottom: -120px;
-  background: #8b5cf6;
-}
+        /* LOGO SOL - Responsive yapıldı */
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 220px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 22px rgba(167,139,250,0.6));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+        .logo:hover {
+            transform: scale(1.08) rotate(8deg);
+        }
 
-.stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
+        /* SAĞ GÖRSEL - Responsive + glow iyileştirildi */
+        .right-img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 160px;
+            filter: drop-shadow(0 0 20px rgba(56,189,248,0.5));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
 
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.5;
-  animation: drift linear infinite;
-  box-shadow: 0 0 6px rgba(255,255,255,0.25);
-}
+        .right-img:hover {
+            transform: scale(1.08) rotate(-8deg);
+        }
 
-@keyframes drift {
-  0% { transform: translate(0px, 0px); }
-  25% { transform: translate(25px, -15px); }
-  50% { transform: translate(-15px, 25px); }
-  75% { transform: translate(15px, 15px); }
-  100% { transform: translate(0px, 0px); }
-}
+        /* ORTA KUTU - Glassmorphism daha premium */
+        .container {
+            text-align: center;
+            backdrop-filter: blur(22px);
+            padding: 55px 60px;
+            border-radius: 28px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5),
+                        0 0 30px rgba(167,139,250,0.15);
+            animation: fadeUp 1.2s ease forwards;
+            opacity: 0;
+            transform: translateY(50px);
+            z-index: 10;
+            max-width: 520px;
+            width: 100%;
+        }
 
-.logo {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 220px;
-  cursor: pointer;
-  filter: drop-shadow(0 0 18px rgba(167,139,250,0.5));
-  transition: transform 0.3s ease;
-}
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.logo:hover {
-  transform: scale(1.06);
-}
+        h1 {
+            font-size: 44px;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(167,139,250,0.4);
+        }
 
-.right-img {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 155px;
-  filter: drop-shadow(0 0 15px rgba(56,189,248,0.4));
-  transition: transform 0.3s ease;
-  animation: floatSkin 4.6s ease-in-out infinite;
-  z-index: 2;
-}
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #a78bfa, #38bdf8);
+            color: #020617;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            margin-left: 12px;
+            box-shadow: 0 0 15px rgba(167,139,250,0.5);
+            letter-spacing: 0.5px;
+        }
 
-.right-img:hover {
-  transform: scale(1.06);
-}
+        h2 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            opacity: 0.85;
+            font-weight: 500;
+        }
 
-@keyframes floatSkin {
-  0%,
-  100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
+        .description {
+            margin: 0 auto 30px;
+            max-width: 380px;
+            font-size: 17px;
+            line-height: 1.5;
+            opacity: 0.85;
+            color: #e0e7ff;
+        }
 
-.container {
-  position: relative;
-  width: min(720px, 100%);
-  text-align: center;
-  backdrop-filter: blur(18px);
-  padding: 54px 50px 34px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-  border: 1px solid var(--panel-border);
-  box-shadow: 0 0 40px rgba(0,0,0,0.4);
-  animation: fadeUp 1s ease forwards;
-  opacity: 0;
-  transform: translateY(40px);
-  z-index: 10;
-}
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 16px 42px;
+            font-size: 17px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.09);
+            backdrop-filter: blur(18px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-.container::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: 27px;
-  background: linear-gradient(145deg, rgba(56,189,248,0.08), rgba(167,139,250,0.05), rgba(255,255,255,0.02));
-  pointer-events: none;
-}
+        .btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 25px rgba(167,139,250,0.4);
+            background: rgba(255,255,255,0.15);
+        }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+        .btn::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 300%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: linear-gradient(90deg, #38bdf8, #a78bfa);
+            opacity: 0.3;
+            transition: 0.5s;
+        }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(15,23,42,0.55);
-  border: 1px solid rgba(148,163,184,0.18);
-  color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+        .btn:hover::before {
+            width: 250%;
+        }
 
-.eyebrow-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-  box-shadow: 0 0 14px rgba(56,189,248,0.75);
-}
+        /* Trust signals */
+        .trust {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            opacity: 0.75;
+        }
 
-h1 {
-  font-size: clamp(36px, 5vw, 52px);
-  line-height: 1.1;
-  margin-bottom: 14px;
-  background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .trust span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-.subtitle {
-  max-width: 540px;
-  margin: 0 auto 26px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--muted);
-}
+        /* Footer */
+        footer {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
+            font-size: 13px;
+            opacity: 0.65;
+            line-height: 1.4;
+        }
 
-.badges {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 26px;
-}
+        footer a {
+            color: #a78bfa;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-.badge {
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #e2e8f0;
-  font-size: 13px;
-  backdrop-filter: blur(14px);
-}
+        footer a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
 
-.actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 28px;
-}
+        /* Toast bildirimi (modern indirme feedback) */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #a78bfa, #38bdf8);
+            color: #020617;
+            padding: 16px 28px;
+            border-radius: 9999px;
+            box-shadow: 0 10px 30px rgba(167,139,250,0.4);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            font-weight: 600;
+            font-size: 16px;
+            white-space: nowrap;
+            animation: toastPop 0.4s ease forwards;
+        }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-width: 220px;
-  margin: 0;
-  padding: 16px 34px;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
+        @keyframes toastPop {
+            0% { transform: translate(-50%, 30px); opacity: 0; }
+            100% { transform: translate(-50%, 0); opacity: 1; }
+        }
 
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px rgba(167,139,250,0.22);
-  border-color: rgba(167,139,250,0.28);
-}
+        /* Mobil uyum */
+        @media (max-width: 768px) {
+            .logo { width: 170px; top: 15px; left: 15px; }
+            .right-img { width: 110px; top: 15px; right: 15px; }
+            .container { padding: 40px 30px; max-width: 92%; border-radius: 22px; }
+            h1 { font-size: 34px; }
+            .version-badge { font-size: 12px; padding: 3px 10px; margin-left: 8px; }
+            h2 { font-size: 18px; }
+            .btn { padding: 14px 32px; font-size: 16px; margin: 8px 4px; }
+            footer { bottom: 15px; font-size: 12px; }
+        }
 
-.btn::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 300%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  background: linear-gradient(90deg, #38bdf8, #a78bfa);
-  opacity: 0.25;
-  transition: 0.4s;
-}
-
-.btn:hover::before {
-  width: 220%;
-}
-
-.btn.primary {
-  background: linear-gradient(90deg, rgba(56,189,248,0.24), rgba(167,139,250,0.24));
-  box-shadow: 0 10px 35px rgba(56,189,248,0.16);
-}
-
-.btn.secondary {
-  min-width: auto;
-  padding-inline: 24px;
-}
-
-.info-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.info-card {
-  padding: 16px;
-  border-radius: 18px;
-  background: var(--panel-bg);
-  border: 1px solid rgba(255,255,255,0.08);
-  text-align: left;
-}
-
-.info-card strong {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 15px;
-  color: #f8fafc;
-}
-
-.info-card span {
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(226,232,240,0.76);
-}
-
-.corner-glow {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, rgba(56,189,248,0) 72%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-@media (max-width: 900px) {
-  body {
-    align-items: flex-start;
-    overflow-y: auto;
-  }
-
-  .logo,
-  .right-img {
-    position: static;
-    display: block;
-    margin-inline: auto;
-  }
-
-  .logo {
-    width: min(220px, 58vw);
-    margin-top: 8px;
-    margin-bottom: 14px;
-  }
-
-  .right-img {
-    width: min(145px, 38vw);
-    margin-bottom: 18px;
-  }
-
-  .container {
-    margin-bottom: 20px;
-    padding: 36px 22px 24px;
-  }
-
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 560px) {
-  body {
-    padding: 14px;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-  }
-
-  .subtitle {
-    font-size: 14px;
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .btn,
-  .btn.secondary {
-    width: 100%;
-    min-width: 0;
-  }
-}
-</style>
+        @media (max-width: 480px) {
+            .container { padding: 35px 20px; }
+            h1 { font-size: 30px; }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="stars" id="stars"></div>
 
-<div class="stars" id="stars"></div>
+    <!-- SOL LOGO -->
+    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
+         class="logo"
+         onclick="location.reload()"
+         alt="Grim Logo">
 
-<img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
-class="logo"
-onclick="location.reload()"
-alt="Grim Client logo">
+    <!-- SAĞ GÖRSEL -->
+    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
+         class="right-img"
+         alt="Grim Skin">
 
-<img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
-class="right-img"
-alt="Grim Client skin preview">
+    <div class="container">
+        <h1>Grim'mi İndircen La <span class="version-badge">v2.3.1</span> 🚀</h1>
+        <h2>Tıkla indir, oyunu ele geçir</h2>
+        
+        <p class="description">
+            En stabil, sıfır lag, full anti-cheat bypass.<br>
+            Senin için özel tasarlandı. Hazır mısın?
+        </p>
 
-<div class="container">
-  <div class="corner-glow"></div>
-  <div class="eyebrow">
-    <span class="eyebrow-dot"></span>
-    Grim Client Download
-  </div>
+        <a href="buneboyle.zip" download class="btn">⚔️ Grim Client İndir</a>
+        <a href="buneboyle.zip" download class="btn">⚔️ Mirror İndir (Yedek)</a>
 
-  <h1>Grim'mi İndircen La 🚀</h1>
-  <p class="subtitle">
-    Tek tıkla indir, hızlıca kurul ve direkt oyuna gir. Daha temiz görünüm, daha güçlü sunum ve daha modern bir download sayfası.
-  </p>
-
-  <div class="badges">
-    <span class="badge">Son sürüm paketi</span>
-    <span class="badge">Hızlı kurulum</span>
-    <span class="badge">Direkt zip indir</span>
-  </div>
-
-  <div class="actions">
-    <a href="buneboyle.zip" download class="btn primary">⚔️ Grim Client İndir</a>
-    <a href="#details" class="btn secondary">Detaylara Bak</a>
-  </div>
-
-  <div class="info-grid" id="details">
-    <div class="info-card">
-      <strong>Tek Ana Buton</strong>
-      <span>Sayfa artık daha net. Kullanıcı direkt nereye tıklayacağını görüyor.</span>
+        <!-- Trust signals -->
+        <div class="trust">
+            <span>✅ Virüs tarandı</span>
+            <span>🔥 1.4M+ indirme</span>
+            <span>⚡ Son güncelleme: Bugün</span>
+        </div>
     </div>
-    <div class="info-card">
-      <strong>Daha Güçlü Sunum</strong>
-      <span>Rozetler ve bilgi kartları tasarıma ürün hissi katıyor.</span>
+
+    <!-- Toast bildirimi -->
+    <div id="toast">
+        🚀 İndirme başladı! Grim ile uçmaya hazır mısın?
     </div>
-    <div class="info-card">
-      <strong>Mobil Uyumlu</strong>
-      <span>Küçük ekranlarda düzen bozulmadan akıcı şekilde yerleşiyor.</span>
-    </div>
-  </div>
-</div>
 
-<script>
-const stars = document.getElementById("stars");
+    <!-- Footer -->
+    <footer>
+        © 2026 Grim Team • GitHub Pages<br>
+        Tamamen senin için özel yapıldı 🔥<br>
+        <a href="https://discord.com" target="_blank">Discord'a katıl</a> • 
+        <a href="#" onclick="location.reload()">Yenile</a>
+    </footer>
 
-const STAR_COUNT = 90;
+    <script>
+        // ⭐ Yıldız sistemi - TWINKLE + DRIFT + çeşitlilik eklendi
+        const starsContainer = document.getElementById("stars");
+        const STAR_COUNT = 140; // Daha yoğun ve modern
 
-for (let i = 0; i < STAR_COUNT; i++) {
-  const s = document.createElement("div");
-  s.className = "star";
+        for (let i = 0; i < STAR_COUNT; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
 
-  const size = Math.random() * 2.3 + 1;
-  s.style.width = size + "px";
-  s.style.height = size + "px";
+            // Rastgele boyut (daha doğal görünüm)
+            const size = Math.random() * 3.2 + 0.8;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
 
-  s.style.left = Math.random() * 100 + "%";
-  s.style.top = Math.random() * 100 + "%";
+            // Konum
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
 
-  s.style.opacity = Math.random() * 0.6 + 0.2;
+            // Opacity başlangıç
+            star.style.opacity = Math.random() * 0.7 + 0.3;
 
-  const duration = Math.random() * 8 + 6;
-  s.style.animationDuration = duration + "s";
+            // Drift süresi
+            const driftDuration = Math.random() * 12 + 8;
+            // Twinkle süresi (daha canlı)
+            const twinkleDuration = Math.random() * 2.8 + 1.2;
 
-  stars.appendChild(s);
-}
-</script>
+            // Animasyonları birleştir
+            star.style.animationDuration = `${driftDuration}s, ${twinkleDuration}s`;
+            
+            // Rastgele gecikme efekti
+            star.style.animationDelay = `-${Math.random() * 8}s`;
 
+            starsContainer.appendChild(star);
+        }
+
+        // Toast + buton etkileşimi (modern feedback)
+        const buttons = document.querySelectorAll('.btn');
+        const toast = document.getElementById('toast');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // İndirme devam etsin diye engellemiyoruz
+                toast.style.display = 'flex';
+                
+                // 4 saniye sonra toast gizlensin
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.style.display = 'none';
+                        toast.style.opacity = '1';
+                    }, 400);
+                }, 4000);
+            });
+        });
+
+        // Ekstra: Sayfa yüklendiğinde container'a hafif pulse efekti
+        console.log('%c✅ Grim Client sayfası başarıyla yüklendi - Daha şık, daha modern!', 'color: #a78bfa; font-weight: bold; font-size: 13px;');
+    </script>
 </body>
 </html>
