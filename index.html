@@ -3,260 +3,382 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grim Client - Performansın Zirvesi</title>
+<title>Grim Client</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-  :root {
-    --primary: #38bdf8;
-    --secondary: #a78bfa;
-    --accent: #06b6d4;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
+:root {
+  --panel-bg: rgba(255,255,255,0.08);
+  --panel-border: rgba(255,255,255,0.14);
+  --muted: rgba(226,232,240,0.82);
+  --accent-a: #38bdf8;
+  --accent-b: #a78bfa;
+  --accent-c: #06b6d4;
+}
 
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: white;
+  position: relative;
+  padding: 24px;
+  background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
+  background-size: 400% 400%;
+  animation: gradientBG 18s ease infinite;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+body::before {
+  top: -120px;
+  left: -80px;
+  background: #38bdf8;
+}
+
+body::after {
+  right: -100px;
+  bottom: -120px;
+  background: #8b5cf6;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: drift linear infinite;
+  box-shadow: 0 0 6px rgba(255,255,255,0.25);
+}
+
+@keyframes drift {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(25px, -15px); }
+  50% { transform: translate(-15px, 25px); }
+  75% { transform: translate(15px, 15px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 220px;
+  cursor: pointer;
+  filter: drop-shadow(0 0 18px rgba(167,139,250,0.5));
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.06);
+}
+
+.right-img {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 155px;
+  filter: drop-shadow(0 0 15px rgba(56,189,248,0.4));
+  transition: transform 0.3s ease;
+  animation: floatSkin 4.6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.right-img:hover {
+  transform: scale(1.06);
+}
+
+@keyframes floatSkin {
+  0%,
+  100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.container {
+  position: relative;
+  width: min(720px, 100%);
+  text-align: center;
+  backdrop-filter: blur(18px);
+  padding: 54px 50px 34px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+  transform: translateY(40px);
+  z-index: 10;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 27px;
+  background: linear-gradient(145deg, rgba(56,189,248,0.08), rgba(167,139,250,0.05), rgba(255,255,255,0.02));
+  pointer-events: none;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.55);
+  border: 1px solid rgba(148,163,184,0.18);
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  box-shadow: 0 0 14px rgba(56,189,248,0.75);
+}
+
+h1 {
+  font-size: clamp(36px, 5vw, 52px);
+  line-height: 1.1;
+  margin-bottom: 14px;
+  background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  max-width: 540px;
+  margin: 0 auto 26px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.badges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.badge {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e2e8f0;
+  font-size: 13px;
+  backdrop-filter: blur(14px);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 220px;
+  margin: 0;
+  padding: 16px 34px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(167,139,250,0.22);
+  border-color: rgba(167,139,250,0.28);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 300%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: linear-gradient(90deg, #38bdf8, #a78bfa);
+  opacity: 0.25;
+  transition: 0.4s;
+}
+
+.btn:hover::before {
+  width: 220%;
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, rgba(56,189,248,0.24), rgba(167,139,250,0.24));
+  box-shadow: 0 10px 35px rgba(56,189,248,0.16);
+}
+
+.btn.secondary {
+  min-width: auto;
+  padding-inline: 24px;
+}
+
+.info-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.info-card {
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--panel-bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: left;
+}
+
+.info-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #f8fafc;
+}
+
+.info-card span {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(226,232,240,0.76);
+}
+
+.corner-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, rgba(56,189,248,0) 72%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 900px) {
   body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    color: white;
-    background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
-    background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite;
-    overflow-x: hidden;
+    align-items: flex-start;
+    overflow-y: auto;
   }
 
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* ⭐ STAR FIELD - Arkaya Sabitlendi */
-  .stars {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.5;
-    animation: drift linear infinite;
-    box-shadow: 0 0 6px rgba(255,255,255,0.25);
-  }
-
-  @keyframes drift {
-    0%   { transform: translate(0px, 0px); }
-    25%  { transform: translate(25px, -15px); }
-    50%  { transform: translate(-15px, 25px); }
-    75%  { transform: translate(15px, 15px); }
-    100% { transform: translate(0px, 0px); }
-  }
-
-  /* MODERN NAVBAR (Üst Menü) */
-  nav {
-    width: 100%;
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  .logo,
+  .right-img {
+    position: static;
+    display: block;
+    margin-inline: auto;
   }
 
   .logo {
-    width: 180px;
-    cursor: pointer;
-    filter: drop-shadow(0 0 15px rgba(167,139,250,0.5));
-    transition: transform 0.3s ease;
-  }
-
-  .logo:hover {
-    transform: scale(1.05);
-  }
-
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 30px;
-    font-weight: 500;
-    font-size: 15px;
-    opacity: 0.8;
-    transition: 0.3s;
-  }
-
-  .nav-links a:hover {
-    opacity: 1;
-    color: var(--primary);
-  }
-
-  /* ANA İÇERİK DÜZENİ */
-  .hero {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 5%;
-    z-index: 10;
-    gap: 60px;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .container {
-    text-align: left; /* Artık daha profesyonel durması için sola hizalı */
-    backdrop-filter: blur(18px);
-    padding: 50px;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    animation: fadeUp 1s ease forwards;
-    opacity: 0;
-    transform: translateY(40px);
-    max-width: 600px;
-  }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Rozet Tasarımı */
-  .badge {
-    display: inline-block;
-    padding: 6px 15px;
-    border-radius: 50px;
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    color: var(--primary);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    font-size: 48px;
-    line-height: 1.1;
-    margin-bottom: 15px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-  }
-
-  p.subtitle {
-    font-size: 16px;
-    color: #cbd5e1;
-    margin-bottom: 30px;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* BUTONLAR - Ayrıştırıldı */
-  .button-group {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    padding: 14px 30px;
-    font-size: 16px;
-    font-weight: 500;
-    text-decoration: none;
-    border-radius: 12px;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .btn-primary {
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    color: white;
-    box-shadow: 0 10px 20px rgba(167, 139, 250, 0.3);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 25px rgba(167, 139, 250, 0.5);
-  }
-
-  .btn-secondary {
-    background: rgba(255,255,255,0.05);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-  }
-
-  .btn-secondary:hover {
-    background: rgba(255,255,255,0.1);
-    transform: translateY(-3px);
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  /* SAĞ GÖRSEL (Animasyonlu) */
-  .hero-img-wrapper {
-    animation: float 6s ease-in-out infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: min(220px, 58vw);
+    margin-top: 8px;
+    margin-bottom: 14px;
   }
 
   .right-img {
-    width: 280px;
-    filter: drop-shadow(0 0 25px rgba(56,189,248,0.4));
+    width: min(145px, 38vw);
+    margin-bottom: 18px;
   }
 
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+  .container {
+    margin-bottom: 20px;
+    padding: 36px 22px 24px;
   }
 
-  /* MOBİL UYUM */
-  @media (max-width: 900px) {
-    .hero {
-      flex-direction: column-reverse;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .container {
-      text-align: center;
-      padding: 30px 20px;
-    }
-    .button-group {
-      justify-content: center;
-    }
-    .right-img {
-      width: 200px;
-    }
-    .nav-links {
-      display: none; /* Mobilde sade görünüm için menü gizlendi */
-    }
-    h1 {
-      font-size: 36px;
-    }
+  .info-grid {
+    grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 560px) {
+  body {
+    padding: 14px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .btn,
+  .btn.secondary {
+    width: 100%;
+    min-width: 0;
+  }
+}
 </style>
 </head>
 
@@ -264,53 +386,64 @@
 
 <div class="stars" id="stars"></div>
 
-<nav>
-  <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
-  class="logo" alt="Grim Logo" onclick="location.reload()">
-  
-  <div class="nav-links">
-    <a href="#">Ana Sayfa</a>
-    <a href="#">Özellikler</a>
-    <a href="#">Topluluk</a>
+<img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
+class="logo"
+onclick="location.reload()"
+alt="Grim Client logo">
+
+<img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
+class="right-img"
+alt="Grim Client skin preview">
+
+<div class="container">
+  <div class="corner-glow"></div>
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    Grim Client Download
   </div>
-</nav>
 
-<div class="hero">
-  
-  <div class="container">
-    <div class="badge">🔥 Yeni Sürüm Yayında</div>
-    <h1>Grim Client</h1>
-    <p class="subtitle">
-      Maksimum FPS, pürüzsüz vuruş hissiyatı ve şık tasarımıyla oyunu yeniden keşfet. 
-      <strong>"Grim'mi indircen la?"</strong> diyenlere inat, savaş alanına hükmet!
-    </p>
+  <h1>Grim'mi İndircen La 🚀</h1>
+  <p class="subtitle">
+    Tek tıkla indir, hızlıca kurul ve direkt oyuna gir. Daha temiz görünüm, daha güçlü sunum ve daha modern bir download sayfası.
+  </p>
 
-    <div class="button-group">
-      <a href="buneboyle.zip" download class="btn btn-primary">
-        ⚔️ Hemen İndir
-      </a>
-      <a href="#" class="btn btn-secondary">
-        💬 Discord'a Katıl
-      </a>
+  <div class="badges">
+    <span class="badge">Son sürüm paketi</span>
+    <span class="badge">Hızlı kurulum</span>
+    <span class="badge">Direkt zip indir</span>
+  </div>
+
+  <div class="actions">
+    <a href="buneboyle.zip" download class="btn primary">⚔️ Grim Client İndir</a>
+    <a href="#details" class="btn secondary">Detaylara Bak</a>
+  </div>
+
+  <div class="info-grid" id="details">
+    <div class="info-card">
+      <strong>Tek Ana Buton</strong>
+      <span>Sayfa artık daha net. Kullanıcı direkt nereye tıklayacağını görüyor.</span>
+    </div>
+    <div class="info-card">
+      <strong>Daha Güçlü Sunum</strong>
+      <span>Rozetler ve bilgi kartları tasarıma ürün hissi katıyor.</span>
+    </div>
+    <div class="info-card">
+      <strong>Mobil Uyumlu</strong>
+      <span>Küçük ekranlarda düzen bozulmadan akıcı şekilde yerleşiyor.</span>
     </div>
   </div>
-
-  <div class="hero-img-wrapper">
-    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
-    class="right-img" alt="Grim Client Character">
-  </div>
-
 </div>
 
 <script>
 const stars = document.getElementById("stars");
-const STAR_COUNT = 100;
+
+const STAR_COUNT = 90;
 
 for (let i = 0; i < STAR_COUNT; i++) {
   const s = document.createElement("div");
   s.className = "star";
 
-  const size = Math.random() * 2.5 + 1;
+  const size = Math.random() * 2.3 + 1;
   s.style.width = size + "px";
   s.style.height = size + "px";
 
