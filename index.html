@@ -33,7 +33,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ⭐ STAR FIELD (OPTİMİZE) */
+/* ⭐ STAR FIELD */
 .stars {
   position: absolute;
   width: 100%;
@@ -48,14 +48,14 @@ body {
   border-radius: 50%;
   opacity: 0.5;
   animation: drift linear infinite;
-  box-shadow: 0 0 6px rgba(255,255,255,0.3);
+  box-shadow: 0 0 6px rgba(255,255,255,0.25);
 }
 
 @keyframes drift {
   0%   { transform: translate(0px, 0px); }
-  25%  { transform: translate(30px, -20px); }
-  50%  { transform: translate(-20px, 30px); }
-  75%  { transform: translate(20px, 20px); }
+  25%  { transform: translate(25px, -15px); }
+  50%  { transform: translate(-15px, 25px); }
+  75%  { transform: translate(15px, 15px); }
   100% { transform: translate(0px, 0px); }
 }
 
@@ -71,21 +71,21 @@ body {
 }
 
 .logo:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
-/* SAĞ GÖRSEL */
+/* SAĞ GÖRSEL (KÜÇÜLTÜLDÜ) */
 .right-img {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 220px;
-  filter: drop-shadow(0 0 18px rgba(56,189,248,0.5));
+  width: 150px; /* küçültüldü */
+  filter: drop-shadow(0 0 15px rgba(56,189,248,0.4));
   transition: 0.3s;
 }
 
 .right-img:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 /* ORTA KUTU */
@@ -165,8 +165,8 @@ h1 {
 class="logo"
 onclick="location.reload()">
 
-<!-- SAĞ GÖRSEL -->
-<img src="https://media.discordapp.net/attachments/1395428805950308562/1494487905727549543/pack.png?ex=69e2c9d2&is=69e17852&hm=a3c8043bc844308d54230107f457e1d558472bd3e40af83a3f1efeeccf3c095a&=&format=webp&quality=lossless&width=315&height=284"
+<!-- SAĞ GÖRSEL (KÜÇÜK) -->
+<img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
 class="right-img">
 
 <div class="container">
@@ -180,14 +180,13 @@ class="right-img">
 <script>
 const stars = document.getElementById("stars");
 
-// 🔥 FPS DOSTU YILDIZ SAYISI
 const STAR_COUNT = 90;
 
 for (let i = 0; i < STAR_COUNT; i++) {
   const s = document.createElement("div");
   s.className = "star";
 
-  const size = Math.random() * 2.5 + 1;
+  const size = Math.random() * 2.3 + 1;
   s.style.width = size + "px";
   s.style.height = size + "px";
 
