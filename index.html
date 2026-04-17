@@ -2,157 +2,261 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Grim Client</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grim Client - Performansın Zirvesi</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  color: white;
-
-  background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
-  background-size: 400% 400%;
-  animation: gradientBG 18s ease infinite;
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ⭐ STAR FIELD */
-.stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.5;
-  animation: drift linear infinite;
-  box-shadow: 0 0 6px rgba(255,255,255,0.25);
-}
-
-@keyframes drift {
-  0%   { transform: translate(0px, 0px); }
-  25%  { transform: translate(25px, -15px); }
-  50%  { transform: translate(-15px, 25px); }
-  75%  { transform: translate(15px, 15px); }
-  100% { transform: translate(0px, 0px); }
-}
-
-/* LOGO SOL */
-.logo {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 220px;
-  cursor: pointer;
-  filter: drop-shadow(0 0 18px rgba(167,139,250,0.5));
-  transition: 0.3s;
-}
-
-.logo:hover {
-  transform: scale(1.06);
-}
-
-/* SAĞ GÖRSEL (KÜÇÜLTÜLDÜ) */
-.right-img {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 150px; /* küçültüldü */
-  filter: drop-shadow(0 0 15px rgba(56,189,248,0.4));
-  transition: 0.3s;
-}
-
-.right-img:hover {
-  transform: scale(1.06);
-}
-
-/* ORTA KUTU */
-.container {
-  text-align: center;
-  backdrop-filter: blur(18px);
-  padding: 50px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.05);
-  box-shadow: 0 0 40px rgba(0,0,0,0.4);
-  animation: fadeUp 1s ease forwards;
-  opacity: 0;
-  transform: translateY(40px);
-  z-index: 10;
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  :root {
+    --primary: #38bdf8;
+    --secondary: #a78bfa;
+    --accent: #06b6d4;
   }
-}
 
-h1 {
-  font-size: 42px;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
 
-.btn {
-  display: inline-block;
-  margin: 12px;
-  padding: 15px 35px;
-  font-size: 16px;
-  color: white;
-  text-decoration: none;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
-}
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
+    background-size: 400% 400%;
+    animation: gradientBG 18s ease infinite;
+    overflow-x: hidden;
+  }
 
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 15px rgba(167,139,250,0.25);
-}
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-.btn::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 300%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  background: linear-gradient(90deg, #38bdf8, #a78bfa);
-  opacity: 0.25;
-  transition: 0.4s;
-}
+  /* ⭐ STAR FIELD - Arkaya Sabitlendi */
+  .stars {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.btn:hover::before {
-  width: 220%;
-}
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: drift linear infinite;
+    box-shadow: 0 0 6px rgba(255,255,255,0.25);
+  }
+
+  @keyframes drift {
+    0%   { transform: translate(0px, 0px); }
+    25%  { transform: translate(25px, -15px); }
+    50%  { transform: translate(-15px, 25px); }
+    75%  { transform: translate(15px, 15px); }
+    100% { transform: translate(0px, 0px); }
+  }
+
+  /* MODERN NAVBAR (Üst Menü) */
+  nav {
+    width: 100%;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .logo {
+    width: 180px;
+    cursor: pointer;
+    filter: drop-shadow(0 0 15px rgba(167,139,250,0.5));
+    transition: transform 0.3s ease;
+  }
+
+  .logo:hover {
+    transform: scale(1.05);
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 15px;
+    opacity: 0.8;
+    transition: 0.3s;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+    color: var(--primary);
+  }
+
+  /* ANA İÇERİK DÜZENİ */
+  .hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 5%;
+    z-index: 10;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .container {
+    text-align: left; /* Artık daha profesyonel durması için sola hizalı */
+    backdrop-filter: blur(18px);
+    padding: 50px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+    transform: translateY(40px);
+    max-width: 600px;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Rozet Tasarımı */
+  .badge {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 50px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+
+  p.subtitle {
+    font-size: 16px;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* BUTONLAR - Ayrıştırıldı */
+  .button-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    box-shadow: 0 10px 20px rgba(167, 139, 250, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(167, 139, 250, 0.5);
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.05);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* SAĞ GÖRSEL (Animasyonlu) */
+  .hero-img-wrapper {
+    animation: float 6s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .right-img {
+    width: 280px;
+    filter: drop-shadow(0 0 25px rgba(56,189,248,0.4));
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* MOBİL UYUM */
+  @media (max-width: 900px) {
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .container {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .button-group {
+      justify-content: center;
+    }
+    .right-img {
+      width: 200px;
+    }
+    .nav-links {
+      display: none; /* Mobilde sade görünüm için menü gizlendi */
+    }
+    h1 {
+      font-size: 36px;
+    }
+  }
 </style>
 </head>
 
@@ -160,33 +264,53 @@ h1 {
 
 <div class="stars" id="stars"></div>
 
-<!-- SOL LOGO -->
-<img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
-class="logo"
-onclick="location.reload()">
+<nav>
+  <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
+  class="logo" alt="Grim Logo" onclick="location.reload()">
+  
+  <div class="nav-links">
+    <a href="#">Ana Sayfa</a>
+    <a href="#">Özellikler</a>
+    <a href="#">Topluluk</a>
+  </div>
+</nav>
 
-<!-- SAĞ GÖRSEL (KÜÇÜK) -->
-<img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
-class="right-img">
+<div class="hero">
+  
+  <div class="container">
+    <div class="badge">🔥 Yeni Sürüm Yayında</div>
+    <h1>Grim Client</h1>
+    <p class="subtitle">
+      Maksimum FPS, pürüzsüz vuruş hissiyatı ve şık tasarımıyla oyunu yeniden keşfet. 
+      <strong>"Grim'mi indircen la?"</strong> diyenlere inat, savaş alanına hükmet!
+    </p>
 
-<div class="container">
-  <h1>Grim'mi İndircen La 🚀</h1>
-  <h2>Tıkla indir</h2>
+    <div class="button-group">
+      <a href="buneboyle.zip" download class="btn btn-primary">
+        ⚔️ Hemen İndir
+      </a>
+      <a href="#" class="btn btn-secondary">
+        💬 Discord'a Katıl
+      </a>
+    </div>
+  </div>
 
-  <a href="buneboyle.zip" download class="btn">⚔️ Grim Client</a>
-  <a href="buneboyle.zip" download class="btn">⚔️ Grim Client</a>
+  <div class="hero-img-wrapper">
+    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
+    class="right-img" alt="Grim Client Character">
+  </div>
+
 </div>
 
 <script>
 const stars = document.getElementById("stars");
-
-const STAR_COUNT = 90;
+const STAR_COUNT = 100;
 
 for (let i = 0; i < STAR_COUNT; i++) {
   const s = document.createElement("div");
   s.className = "star";
 
-  const size = Math.random() * 2.3 + 1;
+  const size = Math.random() * 2.5 + 1;
   s.style.width = size + "px";
   s.style.height = size + "px";
 
