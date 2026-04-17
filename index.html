@@ -270,21 +270,27 @@
 
 <div class="hero">
   
-  <div class="container">
-    <div class="badge">🔥</div>
-    <h1>Grim Client</h1>
-    <p class="subtitle">
-      SÜRÜM 1.21.1 
+ <div class="container" id="main-content">
+  <div class="badge">🔥</div>
+  <h1 id="content-title">Grim Client</h1>
+  <p class="subtitle" id="content-desc">SÜRÜM 1.21.1</p>
 
-    <div class="button-group">
-      <a href="buneboyle.zip" download class="btn btn-primary">
-        ⚔️ Hemen İndir
-      </a>
-      <a href="#" class="btn btn-secondary">
-        🩶 Diğerleri
-      </a>
-    </div>
+  <div class="button-group" id="primary-buttons">
+    <a href="buneboyle.zip" download class="btn btn-primary">
+      ⚔️ Hemen İndir
+    </a>
+    <a href="javascript:void(0)" onclick="showDownloads()" class="btn btn-secondary">
+      🩶 Diğerleri
+    </a>
   </div>
+
+  <div class="button-group" id="extra-downloads" style="display: none;">
+    <a href="dosya1.zip" download class="btn btn-secondary">📦 Mod Paketi 1</a>
+    <a href="dosya2.zip" download class="btn btn-secondary">🎨 Texture Pack</a>
+    <a href="dosya3.zip" download class="btn btn-secondary">⚙️ Configler</a>
+    <a href="javascript:void(0)" onclick="showMain()" style="width: 100%; margin-top: 10px; font-size: 13px; opacity: 0.6; text-decoration: underline; color: white;">← Geri Dön</a>
+  </div>
+</div>
 
   <div class="hero-img-wrapper">
     <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
