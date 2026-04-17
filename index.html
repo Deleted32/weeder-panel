@@ -76,7 +76,7 @@
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    background: rgba(2, 6, 23, 0.7); /* Arka planı hafif koyulaştırır */
+    background: rgba(2, 6, 23, 0.7);
     backdrop-filter: blur(10px);
   }
 
@@ -89,7 +89,7 @@
     text-align: center;
   }
 
-  #password-input {
+  .pass-input {
     width: 100%;
     padding: 15px 20px;
     margin-top: 20px;
@@ -103,18 +103,14 @@
     text-align: center;
   }
 
-  #password-input:focus {
+  .pass-input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
   }
 
-  #password-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-  }
-
   /* --- ANA SİTEYİ GİZLEYEN WRAPPER --- */
   #main-wrapper {
-    display: none; /* Şifre girilmeden site görünmez */
+    display: none;
     width: 100%;
     min-height: 100vh;
     flex-direction: column;
@@ -141,21 +137,6 @@
 
   .logo:hover {
     transform: scale(1.05);
-  }
-
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 30px;
-    font-weight: 500;
-    font-size: 15px;
-    opacity: 0.8;
-    transition: 0.3s;
-  }
-
-  .nav-links a:hover {
-    opacity: 1;
-    color: var(--primary);
   }
 
   /* ANA İÇERİK DÜZENİ */
@@ -194,12 +175,17 @@
     width: 100%;
   }
 
+  /* Diğerleri Bölümü İçin Özel Şifre Paneli */
+  #extra-auth-container {
+    display: none;
+    padding: 30px 40px;
+    text-align: center;
+  }
+
   #extra-container {
     display: none;
     padding: 30px 50px;
     animation: slideDown 0.5s ease forwards;
-    opacity: 0;
-    transform: translateY(-20px);
   }
 
   @keyframes fadeUp {
@@ -207,6 +193,7 @@
   }
 
   @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -262,7 +249,7 @@
     justify-content: center;
     gap: 8px;
     cursor: pointer;
-    border: none; /* Form butonu için */
+    border: none;
   }
 
   .btn-primary {
@@ -286,10 +273,8 @@
   .btn-secondary:hover {
     background: rgba(255,255,255,0.1);
     transform: translateY(-3px);
-    border-color: rgba(255,255,255,0.3);
   }
 
-  /* SAĞ GÖRSEL */
   .hero-img-wrapper {
     animation: float 6s ease-in-out infinite;
     display: flex;
@@ -308,18 +293,12 @@
     100% { transform: translateY(0px); }
   }
 
-  /* MOBİL UYUM */
   @media (max-width: 900px) {
-    .hero {
-      flex-direction: column-reverse;
-      text-align: center;
-      margin-top: 20px;
-    }
+    .hero { flex-direction: column-reverse; text-align: center; }
     .left-column { align-items: center; }
     .container { text-align: center; padding: 30px 20px; }
     .button-group { justify-content: center; }
     .right-img { width: 200px; }
-    .nav-links { display: none; }
     h1 { font-size: 36px; }
   }
 </style>
@@ -336,12 +315,10 @@
     <h2 style="font-size: 24px; color: white; margin-bottom: 10px;">Erişim Korumalı</h2>
     <p class="subtitle" style="margin-bottom: 10px; font-size: 14px;">Siteyi görüntülemek için şifreyi girin.</p>
     
-    <input type="password" id="password-input" placeholder="Şifrenizi buraya girin...">
-    <p id="error-msg" style="color: #ef4444; margin-top: 10px; font-size: 14px; display: none;">Hatalı şifre, tekrar deneyin!</p>
+    <input type="password" id="password-input" class="pass-input" placeholder="Şifre...">
+    <p id="error-msg" style="color: #ef4444; margin-top: 10px; font-size: 14px; display: none;">Hatalı şifre!</p>
     
-    <button onclick="checkPassword()" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
-      Giriş Yap
-    </button>
+    <button onclick="checkPassword()" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Giriş Yap</button>
   </div>
 </div>
 
@@ -358,19 +335,21 @@
         <h1 id="content-title">Grim Client</h1>
         <p class="subtitle" id="content-desc">SÜRÜM 1.21.1</p>
 
-        <div class="button-group" id="primary-buttons">
-          <a href="buneboyle.zip" download class="btn btn-primary">
-            ⚔️ Hemen İndir
-          </a>
-          <a onclick="toggleDownloads()" class="btn btn-secondary">
-            🩶 Diğerleri
-          </a>
+        <div class="button-group">
+          <a href="buneboyle.zip" download class="btn btn-primary">⚔️ Hemen İndir</a>
+          <a onclick="showExtraAuth()" class="btn btn-secondary">🩶 Diğerleri</a>
         </div>
+      </div>
+
+      <div class="container" id="extra-auth-container">
+        <h2 style="font-size: 18px; color: var(--primary); margin-bottom: 15px;">Erişim Şifresi Gerekli</h2>
+        <input type="password" id="extra-pass-input" class="pass-input" placeholder="Bölüm şifresi..." style="margin-top: 0;">
+        <button onclick="checkExtraPassword()" class="btn btn-primary" style="width: 100%; margin-top: 15px; padding: 10px;">Dosyaları Göster</button>
       </div>
 
       <div class="container" id="extra-container">
         <h2 style="font-size: 20px; margin-bottom: 20px; color: var(--secondary);">Ekstra Dosyalar</h2>
-        <div class="button-group" id="extra-downloads">
+        <div class="button-group">
           <a href="Vulcan.jar" download class="btn btn-secondary">📦 Vulcan Plugin</a>
           <a href="pack.zip" download class="btn btn-secondary">🎨 Nivoria Pack</a>
           <a href="kurt.webp" download class="btn btn-secondary">🐺 Kurt Logo</a>
@@ -389,66 +368,63 @@
 </div>
 
 <script>
-// --- ŞİFRE KONTROL SİSTEMİ ---
+// --- ANA ŞİFRE KONTROLÜ ---
 function checkPassword() {
   const inputVal = document.getElementById("password-input").value;
   const errorMsg = document.getElementById("error-msg");
-  
-  // Belirlediğin iki şifre kontrol ediliyor
   if(inputVal === "153815Nivo" || inputVal === "Nivoria31") {
-    // Şifre doğruysa koruma ekranını gizle, ana siteyi aç
     document.getElementById("password-screen").style.display = "none";
     document.getElementById("main-wrapper").style.display = "flex";
   } else {
-    // Şifre yanlışsa hata mesajı göster ve kutuyu temizle
     errorMsg.style.display = "block";
     document.getElementById("password-input").value = "";
   }
 }
 
-// Enter tuşuna basılınca otomatik kontrol etme
-document.getElementById("password-input").addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    checkPassword();
-  }
-});
-
-// --- DİĞERLERİ BUTONU ---
-function toggleDownloads() {
-  const extraContainer = document.getElementById("extra-container");
-  if (extraContainer.style.display === "none" || extraContainer.style.display === "") {
-    extraContainer.style.display = "block";
+// --- DİĞERLERİ KISMI ŞİFRE KONTROLÜ ---
+function showExtraAuth() {
+  const authCont = document.getElementById("extra-auth-container");
+  const extraCont = document.getElementById("extra-container");
+  
+  // Zaten açıksa kapat, kapalıysa şifre sorma panelini aç
+  if(authCont.style.display === "block" || extraCont.style.display === "block") {
+    authCont.style.display = "none";
+    extraCont.style.display = "none";
   } else {
-    extraContainer.style.display = "none";
+    authCont.style.display = "block";
   }
 }
 
+function checkExtraPassword() {
+  const pass = document.getElementById("extra-pass-input").value;
+  if(pass === "plugin") {
+    document.getElementById("extra-auth-container").style.display = "none";
+    document.getElementById("extra-container").style.display = "block";
+  } else {
+    alert("Hatalı bölüm şifresi!");
+    document.getElementById("extra-pass-input").value = "";
+  }
+}
+
+// Klavye Enter Desteği
+document.getElementById("password-input").addEventListener("keypress", (e) => { if(e.key === "Enter") checkPassword(); });
+document.getElementById("extra-pass-input").addEventListener("keypress", (e) => { if(e.key === "Enter") checkExtraPassword(); });
+
 // --- YILDIZLAR ---
 const stars = document.getElementById("stars");
-const STAR_COUNT = 250; 
-
-for (let i = 0; i < STAR_COUNT; i++) {
+for (let i = 0; i < 250; i++) {
   const s = document.createElement("div");
   s.className = "star";
-
   const size = Math.random() * 2.5 + 1;
   s.style.width = size + "px";
   s.style.height = size + "px";
-
   s.style.left = Math.random() * 100 + "%";
   s.style.top = Math.random() * 100 + "%";
-  s.style.opacity = Math.random() * 0.6 + 0.2;
-
   const tx = (Math.random() - 0.5) * 200 + "vw"; 
   const ty = (Math.random() - 0.5) * 200 + "vh";
-  
   s.style.setProperty('--tx', tx);
   s.style.setProperty('--ty', ty);
-
-  const duration = Math.random() * 15 + 10; 
-  s.style.animationDuration = duration + "s";
-
+  s.style.animationDuration = (Math.random() * 15 + 10) + "s";
   stars.appendChild(s);
 }
 </script>
