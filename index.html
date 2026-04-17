@@ -2,392 +2,49 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Grim Client - En stabil, en hızlı ve en havalı client. Tıkla indir, oyunu domine et! 🚀">
-    <title>Grim Client</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: white;
-            background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
-            background-size: 400% 400%;
-            animation: gradientBG 18s ease infinite;
-            position: relative;
-        }
+    <title>Grim Client Index (v0.1)</title>
+    <style> * { &nbsp;&nbsp;margin: 0; &nbsp;&nbsp;padding: 0; &nbsp;&nbsp;box-sizing: border-box; &nbsp;&nbsp;
+        font-family: 'Poppins', sans-serif;
+      } body { 
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-role: center;
 
         @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+            0% { background-position = 50% }
+           25% { transform=translate(25px, -137px); }
+           50%{ transform=translate(137px, -244px); }
+            75%{ transform=translate(137px, -496px);}
+            100%{ transform=translate(899+Math.random()*268+63), visibility="hidden"} }
 
-        /* ⭐ STAR FIELD - GELİŞTİRİLDİ */
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            box-shadow: 0 0 8px rgba(255,255,255,0.4);
-            animation: drift linear infinite, twinkle ease-in-out infinite;
+         /* ⭐ STAR FIELD */
+         .stars {
+            position : absolute !important ;
+            width : 16em !important ;
+            height : 2em !important ;
+            textAlign : left
+            color : #fff !important
+            opacity   : .98 
+            animationDuration = .3s
         }
 
         @keyframes drift {
-            0% { transform: translate(0px, 0px); }
-            25% { transform: translate(25px, -15px); }
-            50% { transform: translate(-15px, 25px); }
-            75% { transform: translate(15px, 15px); }
-            100% { transform: translate(0px, 0px); }
-        }
+            left      %{ animationStart + timer ) times outline("linear", "--") },
+                right   %{ animationEnd + timer ) opacity('slow','--') },
+                top      %{ animationStart + timer ) shadowRole('default','--') },
+                bottom    %{ animationStart + timer ) visibility('hidden') }
+       /* LOGO SOL */
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.25; }
-            50% { opacity: 0.95; }
-        }
-
-        /* LOGO SOL - Responsive yapıldı */
         .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 220px;
-            cursor: pointer;
-            filter: drop-shadow(0 0 22px rgba(167,139,250,0.6));
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 20;
+            position : absolute , top     , left  , width   , height  
         }
 
-        .logo:hover {
-            transform: scale(1.08) rotate(8deg);
-        }
+### Grim Index Template Code:
 
-        /* SAĞ GÖRSEL - Responsive + glow iyileştirildi */
-        .right-img {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 160px;
-            filter: drop-shadow(0 0 20px rgba(56,189,248,0.5));
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 20;
-        }
-
-        .right-img:hover {
-            transform: scale(1.08) rotate(-8deg);
-        }
-
-        /* ORTA KUTU - Glassmorphism daha premium */
-        .container {
-            text-align: center;
-            backdrop-filter: blur(22px);
-            padding: 55px 60px;
-            border-radius: 28px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 0 50px rgba(0,0,0,0.5),
-                        0 0 30px rgba(167,139,250,0.15);
-            animation: fadeUp 1.2s ease forwards;
-            opacity: 0;
-            transform: translateY(50px);
-            z-index: 10;
-            max-width: 520px;
-            width: 100%;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            font-size: 44px;
-            margin-bottom: 12px;
-            background: linear-gradient(90deg, #38bdf8, #a78bfa, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(167,139,250,0.4);
-        }
-
-        .version-badge {
-            display: inline-block;
-            background: linear-gradient(90deg, #a78bfa, #38bdf8);
-            color: #020617;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 9999px;
-            margin-left: 12px;
-            box-shadow: 0 0 15px rgba(167,139,250,0.5);
-            letter-spacing: 0.5px;
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-bottom: 25px;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .description {
-            margin: 0 auto 30px;
-            max-width: 380px;
-            font-size: 17px;
-            line-height: 1.5;
-            opacity: 0.85;
-            color: #e0e7ff;
-        }
-
-        .btn {
-            display: inline-block;
-            margin: 10px;
-            padding: 16px 42px;
-            font-size: 17px;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-            border-radius: 16px;
-            background: rgba(255,255,255,0.09);
-            backdrop-filter: blur(18px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 0 25px rgba(167,139,250,0.4);
-            background: rgba(255,255,255,0.15);
-        }
-
-        .btn::before {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 300%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            background: linear-gradient(90deg, #38bdf8, #a78bfa);
-            opacity: 0.3;
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            width: 250%;
-        }
-
-        /* Trust signals */
-        .trust {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            font-size: 14px;
-            opacity: 0.75;
-        }
-
-        .trust span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Footer */
-        footer {
-            position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 5;
-            font-size: 13px;
-            opacity: 0.65;
-            line-height: 1.4;
-        }
-
-        footer a {
-            color: #a78bfa;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        footer a:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
-        /* Toast bildirimi (modern indirme feedback) */
-        #toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, #a78bfa, #38bdf8);
-            color: #020617;
-            padding: 16px 28px;
-            border-radius: 9999px;
-            box-shadow: 0 10px 30px rgba(167,139,250,0.4);
-            display: none;
-            align-items: center;
-            gap: 12px;
-            z-index: 9999;
-            font-weight: 600;
-            font-size: 16px;
-            white-space: nowrap;
-            animation: toastPop 0.4s ease forwards;
-        }
-
-        @keyframes toastPop {
-            0% { transform: translate(-50%, 30px); opacity: 0; }
-            100% { transform: translate(-50%, 0); opacity: 1; }
-        }
-
-        /* Mobil uyum */
-        @media (max-width: 768px) {
-            .logo { width: 170px; top: 15px; left: 15px; }
-            .right-img { width: 110px; top: 15px; right: 15px; }
-            .container { padding: 40px 30px; max-width: 92%; border-radius: 22px; }
-            h1 { font-size: 34px; }
-            .version-badge { font-size: 12px; padding: 3px 10px; margin-left: 8px; }
-            h2 { font-size: 18px; }
-            .btn { padding: 14px 32px; font-size: 16px; margin: 8px 4px; }
-            footer { bottom: 15px; font-size: 12px; }
-        }
-
-        @media (max-width: 480px) {
-            .container { padding: 35px 20px; }
-            h1 { font-size: 30px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="stars" id="stars"></div>
-
-    <!-- SOL LOGO -->
-    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
-         class="logo"
-         onclick="location.reload()"
-         alt="Grim Logo">
-
-    <!-- SAĞ GÖRSEL -->
-    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
-         class="right-img"
-         alt="Grim Skin">
-
-    <div class="container">
-        <h1>Grim'mi İndircen La <span class="version-badge">v2.3.1</span> 🚀</h1>
-        <h2>Tıkla indir, oyunu ele geçir</h2>
-        
-        <p class="description">
-            En stabil, sıfır lag, full anti-cheat bypass.<br>
-            Senin için özel tasarlandı. Hazır mısın?
-        </p>
-
-        <a href="buneboyle.zip" download class="btn">⚔️ Grim Client İndir</a>
-        <a href="buneboyle.zip" download class="btn">⚔️ Mirror İndir (Yedek)</a>
-
-        <!-- Trust signals -->
-        <div class="trust">
-            <span>✅ Virüs tarandı</span>
-            <span>🔥 1.4M+ indirme</span>
-            <span>⚡ Son güncelleme: Bugün</span>
-        </div>
-    </div>
-
-    <!-- Toast bildirimi -->
-    <div id="toast">
-        🚀 İndirme başladı! Grim ile uçmaya hazır mısın?
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        © 2026 Grim Team • GitHub Pages<br>
-        Tamamen senin için özel yapıldı 🔥<br>
-        <a href="https://discord.com" target="_blank">Discord'a katıl</a> • 
-        <a href="#" onclick="location.reload()">Yenile</a>
-    </footer>
-
-    <script>
-        // ⭐ Yıldız sistemi - TWINKLE + DRIFT + çeşitlilik eklendi
-        const starsContainer = document.getElementById("stars");
-        const STAR_COUNT = 140; // Daha yoğun ve modern
-
-        for (let i = 0; i < STAR_COUNT; i++) {
-            const star = document.createElement("div");
-            star.className = "star";
-
-            // Rastgele boyut (daha doğal görünüm)
-            const size = Math.random() * 3.2 + 0.8;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-
-            // Konum
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-
-            // Opacity başlangıç
-            star.style.opacity = Math.random() * 0.7 + 0.3;
-
-            // Drift süresi
-            const driftDuration = Math.random() * 12 + 8;
-            // Twinkle süresi (daha canlı)
-            const twinkleDuration = Math.random() * 2.8 + 1.2;
-
-            // Animasyonları birleştir
-            star.style.animationDuration = `${driftDuration}s, ${twinkleDuration}s`;
-            
-            // Rastgele gecikme efekti
-            star.style.animationDelay = `-${Math.random() * 8}s`;
-
-            starsContainer.appendChild(star);
-        }
-
-        // Toast + buton etkileşimi (modern feedback)
-        const buttons = document.querySelectorAll('.btn');
-        const toast = document.getElementById('toast');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                // İndirme devam etsin diye engellemiyoruz
-                toast.style.display = 'flex';
-                
-                // 4 saniye sonra toast gizlensin
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        toast.style.display = 'none';
-                        toast.style.opacity = '1';
-                    }, 400);
-                }, 4000);
-            });
-        });
-
-        // Ekstra: Sayfa yüklendiğinde container'a hafif pulse efekti
-        console.log('%c✅ Grim Client sayfası başarıyla yüklendi - Daha şık, daha modern!', 'color: #a78bfa; font-weight: bold; font-size: 13px;');
-    </script>
-</body>
-</html>
+```js
+document
+    getElementsByID
+        updateLogoAndClosureStatesOnUpdate logos states updatetoupdate overlaystate loadedLoadable removeLoadable
+    windowLoaded - loadingFinished lockForUpdateWhenNeeded lockForRemovalWhenNeeded lock should be used to handle removal from browser only when needed depending upon the context and requirements of your application but generally it should not be used on websites and other page reloads that are not rendered to the user when the app has been terminated or terminated from the app simply because they will be reopened without overlay states being refreshed to display their previous state.
