@@ -38,7 +38,7 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* ⭐ STAR FIELD - Çapraz/Farklı Yönlere Kayan Yıldızlar */
+  /* ⭐ STAR FIELD */
   .stars {
     position: fixed;
     width: 100vw;
@@ -59,13 +59,68 @@
     box-shadow: 0 0 6px rgba(255,255,255,0.25);
   }
 
-  /* JavaScript ile atanan değişkenlere (tx, ty) doğru uçar */
   @keyframes flyAway {
     0%   { transform: translate(0px, 0px); }
     100% { transform: translate(var(--tx), var(--ty)); }
   }
 
-  /* MODERN NAVBAR (Üst Menü) */
+  /* --- ŞİFRE EKRANI STİLLERİ --- */
+  #password-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    background: rgba(2, 6, 23, 0.7); /* Arka planı hafif koyulaştırır */
+    backdrop-filter: blur(10px);
+  }
+
+  .password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  #password-input {
+    width: 100%;
+    padding: 15px 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    text-align: center;
+  }
+
+  #password-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+  }
+
+  #password-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* --- ANA SİTEYİ GİZLEYEN WRAPPER --- */
+  #main-wrapper {
+    display: none; /* Şifre girilmeden site görünmez */
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  /* MODERN NAVBAR */
   nav {
     width: 100%;
     padding: 20px 5%;
@@ -117,7 +172,6 @@
     width: 100%;
   }
 
-  /* Sol tarafı gruplayan görünmez kutu (İki container'ı alt alta tutar) */
   .left-column {
     display: flex;
     flex-direction: column;
@@ -140,10 +194,9 @@
     width: 100%;
   }
 
-  /* İkinci Container (Ek İndirmeler) için özel animasyon */
   #extra-container {
-    display: none; /* Başlangıçta gizli */
-    padding: 30px 50px; /* Biraz daha dar iç boşluk */
+    display: none;
+    padding: 30px 50px;
     animation: slideDown 0.5s ease forwards;
     opacity: 0;
     transform: translateY(-20px);
@@ -209,6 +262,7 @@
     justify-content: center;
     gap: 8px;
     cursor: pointer;
+    border: none; /* Form butonu için */
   }
 
   .btn-primary {
@@ -235,7 +289,7 @@
     border-color: rgba(255,255,255,0.3);
   }
 
-  /* SAĞ GÖRSEL (Animasyonlu) */
+  /* SAĞ GÖRSEL */
   .hero-img-wrapper {
     animation: float 6s ease-in-out infinite;
     display: flex;
@@ -262,22 +316,11 @@
       margin-top: 20px;
     }
     .left-column { align-items: center; }
-    .container {
-      text-align: center;
-      padding: 30px 20px;
-    }
-    .button-group {
-      justify-content: center;
-    }
-    .right-img {
-      width: 200px;
-    }
-    .nav-links {
-      display: none;
-    }
-    h1 {
-      font-size: 36px;
-    }
+    .container { text-align: center; padding: 30px 20px; }
+    .button-group { justify-content: center; }
+    .right-img { width: 200px; }
+    .nav-links { display: none; }
+    h1 { font-size: 36px; }
   }
 </style>
 </head>
@@ -286,54 +329,94 @@
 
 <div class="stars" id="stars"></div>
 
-<nav>
-  <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
-  class="logo" alt="Grim Logo" onclick="location.reload()">
-</nav>
-
-<div class="hero">
+<div id="password-screen">
+  <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079" class="logo" alt="Grim Logo" style="margin-bottom: 20px;">
   
-  <div class="left-column">
-    <div class="container" id="main-content">
-      <div class="badge">🔥</div>
-      <h1 id="content-title">Grim Client</h1>
-      <p class="subtitle" id="content-desc">SÜRÜM 1.21.1</p>
+  <div class="container password-container">
+    <h2 style="font-size: 24px; color: white; margin-bottom: 10px;">Erişim Korumalı</h2>
+    <p class="subtitle" style="margin-bottom: 10px; font-size: 14px;">Siteyi görüntülemek için şifreyi girin.</p>
+    
+    <input type="password" id="password-input" placeholder="Şifrenizi buraya girin...">
+    <p id="error-msg" style="color: #ef4444; margin-top: 10px; font-size: 14px; display: none;">Hatalı şifre, tekrar deneyin!</p>
+    
+    <button onclick="checkPassword()" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+      Giriş Yap
+    </button>
+  </div>
+</div>
 
-      <div class="button-group" id="primary-buttons">
-        <a href="buneboyle.zip" download class="btn btn-primary">
-          ⚔️ Hemen İndir
-        </a>
-        <a onclick="toggleDownloads()" class="btn btn-secondary">
-          🩶 Diğerleri
-        </a>
+<div id="main-wrapper">
+  <nav>
+    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
+    class="logo" alt="Grim Logo" onclick="location.reload()">
+  </nav>
+
+  <div class="hero">
+    <div class="left-column">
+      <div class="container" id="main-content">
+        <div class="badge">🔥</div>
+        <h1 id="content-title">Grim Client</h1>
+        <p class="subtitle" id="content-desc">SÜRÜM 1.21.1</p>
+
+        <div class="button-group" id="primary-buttons">
+          <a href="buneboyle.zip" download class="btn btn-primary">
+            ⚔️ Hemen İndir
+          </a>
+          <a onclick="toggleDownloads()" class="btn btn-secondary">
+            🩶 Diğerleri
+          </a>
+        </div>
+      </div>
+
+      <div class="container" id="extra-container">
+        <h2 style="font-size: 20px; margin-bottom: 20px; color: var(--secondary);">Ekstra Dosyalar</h2>
+        <div class="button-group" id="extra-downloads">
+          <a href="Vulcan.jar" download class="btn btn-secondary">📦 Vulcan Plugin</a>
+          <a href="pack.zip" download class="btn btn-secondary">🎨 Nivoria Pack</a>
+          <a href="kurt.webp" download class="btn btn-secondary">🐺 Kurt Logo</a>
+          <a href="DeluxeMenus.jar" download class="btn btn-secondary">📦 Deluxe Menu</a>
+          <a href="Citizens.jar" download class="btn btn-secondary">📦 Citizens</a>
+          <a href="DeluxeCombat.jar" download class="btn btn-secondary">📦 Deluxe Combat</a>
+        </div>
       </div>
     </div>
 
-    <div class="container" id="extra-container">
-      <h2 style="font-size: 20px; margin-bottom: 20px; color: var(--secondary);">Ekstra Dosyalar</h2>
-      <div class="button-group" id="extra-downloads">
-        <a href="Vulcan.jar" download class="btn btn-secondary">📦 Vulcan Plugin</a>
-        <a href="pack.zip" download class="btn btn-secondary">🎨 Nivoria Pack</a>
-        <a href="kurt.webp" download class="btn btn-secondary">🐺 Kurt Logo</a>
-        <a href="DeluxeMenus.jar" download class="btn btn-secondary">📦 Deluxe Menu</a>
-        <a href="Citizens.jar" download class="btn btn-secondary">📦 Citizens</a>
-        <a href="DeluxeCombat.jar" download class="btn btn-secondary">📦 Deluxe Combat</a>
-      </div>
+    <div class="hero-img-wrapper">
+      <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
+      class="right-img" alt="Grim Client Character">
     </div>
   </div>
-
-  <div class="hero-img-wrapper">
-    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
-    class="right-img" alt="Grim Client Character">
-  </div>
-
 </div>
 
 <script>
-// "Diğerleri" Butonu Aç-Kapa Fonksiyonu
+// --- ŞİFRE KONTROL SİSTEMİ ---
+function checkPassword() {
+  const inputVal = document.getElementById("password-input").value;
+  const errorMsg = document.getElementById("error-msg");
+  
+  // Belirlediğin iki şifre kontrol ediliyor
+  if(inputVal === "153815Nivo" || inputVal === "Nivoria31") {
+    // Şifre doğruysa koruma ekranını gizle, ana siteyi aç
+    document.getElementById("password-screen").style.display = "none";
+    document.getElementById("main-wrapper").style.display = "flex";
+  } else {
+    // Şifre yanlışsa hata mesajı göster ve kutuyu temizle
+    errorMsg.style.display = "block";
+    document.getElementById("password-input").value = "";
+  }
+}
+
+// Enter tuşuna basılınca otomatik kontrol etme
+document.getElementById("password-input").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    checkPassword();
+  }
+});
+
+// --- DİĞERLERİ BUTONU ---
 function toggleDownloads() {
   const extraContainer = document.getElementById("extra-container");
-  
   if (extraContainer.style.display === "none" || extraContainer.style.display === "") {
     extraContainer.style.display = "block";
   } else {
@@ -341,7 +424,7 @@ function toggleDownloads() {
   }
 }
 
-// YILDIZLAR (Sayıları artırıldı, her yöne uçacak şekilde ayarlandı)
+// --- YILDIZLAR ---
 const stars = document.getElementById("stars");
 const STAR_COUNT = 250; 
 
@@ -353,20 +436,16 @@ for (let i = 0; i < STAR_COUNT; i++) {
   s.style.width = size + "px";
   s.style.height = size + "px";
 
-  // Başlangıç noktası
   s.style.left = Math.random() * 100 + "%";
   s.style.top = Math.random() * 100 + "%";
-
   s.style.opacity = Math.random() * 0.6 + 0.2;
 
-  // Hedef noktası: Ekrandan dışarı (rastgele sağ/sol, aşağı/yukarı)
   const tx = (Math.random() - 0.5) * 200 + "vw"; 
   const ty = (Math.random() - 0.5) * 200 + "vh";
   
   s.style.setProperty('--tx', tx);
   s.style.setProperty('--ty', ty);
 
-  // Süre rastgele (10 ile 25 saniye arası)
   const duration = Math.random() * 15 + 10; 
   s.style.animationDuration = duration + "s";
 
