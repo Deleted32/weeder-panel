@@ -38,15 +38,16 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* ⭐ GELİŞMİŞ YILDIZ ALANI */
+  /* ⭐ STAR FIELD - Çapraz/Farklı Yönlere Kayan Yıldızlar */
   .stars {
     position: fixed;
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 0;
+    overflow: hidden;
     pointer-events: none;
+    z-index: 0;
   }
 
   .star {
@@ -54,14 +55,17 @@
     background: white;
     border-radius: 50%;
     opacity: 0.5;
-    animation: moveStar linear infinite;
+    animation: flyAway linear infinite;
+    box-shadow: 0 0 6px rgba(255,255,255,0.25);
   }
 
-  @keyframes moveStar {
-    from { transform: translate(0, 0); }
-    to { transform: translate(var(--x), var(--y)); }
+  /* JavaScript ile atanan değişkenlere (tx, ty) doğru uçar */
+  @keyframes flyAway {
+    0%   { transform: translate(0px, 0px); }
+    100% { transform: translate(var(--tx), var(--ty)); }
   }
 
+  /* MODERN NAVBAR (Üst Menü) */
   nav {
     width: 100%;
     padding: 20px 5%;
@@ -80,6 +84,26 @@
     transition: transform 0.3s ease;
   }
 
+  .logo:hover {
+    transform: scale(1.05);
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 15px;
+    opacity: 0.8;
+    transition: 0.3s;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+    color: var(--primary);
+  }
+
+  /* ANA İÇERİK DÜZENİ */
   .hero {
     flex: 1;
     display: flex;
@@ -93,8 +117,17 @@
     width: 100%;
   }
 
+  /* Sol tarafı gruplayan görünmez kutu (İki container'ı alt alta tutar) */
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+  }
+
   .container {
-    text-align: left;
+    text-align: left; 
     backdrop-filter: blur(18px);
     padding: 50px;
     border-radius: 25px;
@@ -102,15 +135,29 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     animation: fadeUp 1s ease forwards;
-    max-width: 600px;
+    opacity: 0;
+    transform: translateY(40px);
     width: 100%;
   }
 
+  /* İkinci Container (Ek İndirmeler) için özel animasyon */
+  #extra-container {
+    display: none; /* Başlangıçta gizli */
+    padding: 30px 50px; /* Biraz daha dar iç boşluk */
+    animation: slideDown 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes slideDown {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Rozet Tasarımı */
   .badge {
     display: inline-block;
     padding: 6px 15px;
@@ -120,6 +167,7 @@
     color: var(--primary);
     font-size: 13px;
     font-weight: 700;
+    letter-spacing: 1px;
     margin-bottom: 20px;
     text-transform: uppercase;
   }
@@ -134,13 +182,15 @@
     font-weight: 700;
   }
 
-  .subtitle {
+  p.subtitle {
     font-size: 16px;
     color: #cbd5e1;
     margin-bottom: 30px;
+    line-height: 1.6;
     font-weight: 300;
   }
 
+  /* BUTONLAR */
   .button-group {
     display: flex;
     gap: 15px;
@@ -159,7 +209,6 @@
     justify-content: center;
     gap: 8px;
     cursor: pointer;
-    border: none;
   }
 
   .btn-primary {
@@ -168,136 +217,160 @@
     box-shadow: 0 10px 20px rgba(167, 139, 250, 0.3);
   }
 
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(167, 139, 250, 0.5);
+  }
+
   .btn-secondary {
     background: rgba(255,255,255,0.05);
     color: white;
     border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
   }
 
-  .btn:hover { transform: translateY(-3px); opacity: 0.9; }
-
-  /* EK İNDİRMELER ALANI */
-  #extra-section {
-    display: none;
-    margin-top: 25px;
-    padding-top: 25px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    animation: fadeUp 0.6s ease forwards;
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.3);
   }
 
-  .download-card {
-    background: rgba(255,255,255,0.05);
-    padding: 15px;
-    border-radius: 12px;
+  /* SAĞ GÖRSEL (Animasyonlu) */
+  .hero-img-wrapper {
+    animation: float 6s ease-in-out infinite;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
-    transition: 0.3s;
   }
 
-  .download-card:hover { background: rgba(255,255,255,0.1); }
-
-  .hero-img-wrapper { animation: float 6s ease-in-out infinite; }
-  .right-img { width: 280px; filter: drop-shadow(0 0 25px rgba(56,189,248,0.4)); }
+  .right-img {
+    width: 280px;
+    filter: drop-shadow(0 0 25px rgba(56,189,248,0.4));
+  }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
+    0% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
   }
 
+  /* MOBİL UYUM */
   @media (max-width: 900px) {
-    .hero { flex-direction: column-reverse; text-align: center; }
-    .container { text-align: center; }
-    .button-group { justify-content: center; }
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .left-column { align-items: center; }
+    .container {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .button-group {
+      justify-content: center;
+    }
+    .right-img {
+      width: 200px;
+    }
+    .nav-links {
+      display: none;
+    }
+    h1 {
+      font-size: 36px;
+    }
   }
 </style>
 </head>
+
 <body>
 
 <div class="stars" id="stars"></div>
 
 <nav>
-  <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079" 
+  <img src="https://media.discordapp.net/attachments/1395428805950308562/1494483127895195718/cca6e841-6fb2-4653-b36c-3fa775da7742.png?ex=69e2c55f&is=69e173df&hm=daece1b3428ca87776915676df33dd4668785a895087e63917d8c099183131e7&=&format=webp&quality=lossless&width=1619&height=1079"
   class="logo" alt="Grim Logo" onclick="location.reload()">
 </nav>
 
 <div class="hero">
-  <div class="container">
-    <div class="badge">🔥 Yeni Güncelleme</div>
-    <h1 id="main-title">Grim Client</h1>
-    <p class="subtitle" id="main-desc">Minecraft Deneyiminizi En Üst Seviyeye Taşıyın. Sürüm 1.21.1</p>
+  
+  <div class="left-column">
+    <div class="container" id="main-content">
+      <div class="badge">🔥</div>
+      <h1 id="content-title">Grim Client</h1>
+      <p class="subtitle" id="content-desc">SÜRÜM 1.21.1</p>
 
-    <div class="button-group" id="main-buttons">
-      <a href="buneboyle.zip" download class="btn btn-primary">⚔️ Hemen İndir</a>
-      <button onclick="toggleExtra()" class="btn btn-secondary">🩶 Diğerleri</button>
+      <div class="button-group" id="primary-buttons">
+        <a href="buneboyle.zip" download class="btn btn-primary">
+          ⚔️ Hemen İndir
+        </a>
+        <a onclick="toggleDownloads()" class="btn btn-secondary">
+          🩶 Diğerleri
+        </a>
+      </div>
     </div>
 
-    <div id="extra-section">
-      <div class="download-card">
-        <span>📦 Mod Paketi (v1.0)</span>
-        <a href="dosya1.zip" download class="btn btn-secondary" style="padding: 8px 15px; font-size: 14px;">İndir</a>
+    <div class="container" id="extra-container">
+      <h2 style="font-size: 20px; margin-bottom: 20px; color: var(--secondary);">Ekstra Dosyalar</h2>
+      <div class="button-group" id="extra-downloads">
+        <a href="Vulcan.jar" download class="btn btn-secondary">📦 Vulcan Plugin</a>
+        <a href="pack.zip" download class="btn btn-secondary">🎨 Nivoria Pack</a>
+        <a href="kurt.webp" download class="btn btn-secondary">🐺 Kurt Logo</a>
+        <a href="DeluxeMenus.jar" download class="btn btn-secondary">📦 Deluxe Menu</a>
+        <a href="Citizens.jar" download class="btn btn-secondary">📦 Citizens</a>
+        <a href="DeluxeCombat.jar" download class="btn btn-secondary">📦 Deluxe Combat</a>
       </div>
-      <div class="download-card">
-        <span>🎨 Özel Texture Pack</span>
-        <a href="dosya2.zip" download class="btn btn-secondary" style="padding: 8px 15px; font-size: 14px;">İndir</a>
-      </div>
-      <div class="download-card">
-        <span>⚙️ Grim Config Ayarları</span>
-        <a href="dosya3.zip" download class="btn btn-secondary" style="padding: 8px 15px; font-size: 14px;">İndir</a>
-      </div>
-      <button onclick="toggleExtra()" style="background:none; border:none; color:gray; cursor:pointer; margin-top:10px; font-size:12px; text-decoration:underline; width:100%;">← Geri Dön</button>
     </div>
   </div>
 
   <div class="hero-img-wrapper">
-    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284" 
-    class="right-img" alt="Character">
+    <img src="https://media.discordapp.net/attachments/1395428805950308562/1494489825548566588/skin_clean_professional.png?ex=69e2cb9c&is=69e17a1c&hm=6ee859d45427f9938b41fa55903e6019ac56f5f16375b7dd02981dee04b42315&=&format=webp&quality=lossless&width=315&height=284"
+    class="right-img" alt="Grim Client Character">
   </div>
+
 </div>
 
 <script>
-// YILDIZ SİSTEMİ - Rastgele Yönlere Kayma
-const starsContainer = document.getElementById("stars");
-const count = 150;
-
-for (let i = 0; i < count; i++) {
-  const star = document.createElement("div");
-  star.className = "star";
-  const size = Math.random() * 3;
-  star.style.width = size + "px";
-  star.style.height = size + "px";
+// "Diğerleri" Butonu Aç-Kapa Fonksiyonu
+function toggleDownloads() {
+  const extraContainer = document.getElementById("extra-container");
   
-  // Başlangıç Pozisyonu
-  star.style.left = Math.random() * 100 + "%";
-  star.style.top = Math.random() * 100 + "%";
-  
-  // Rastgele Hedef (Her yöne kayma için)
-  const xMove = (Math.random() - 0.5) * 200 + "px";
-  const yMove = (Math.random() - 0.5) * 200 + "px";
-  star.style.setProperty('--x', xMove);
-  star.style.setProperty('--y', yMove);
-
-  star.style.animationDuration = (Math.random() * 10 + 10) + "s";
-  star.style.opacity = Math.random();
-  starsContainer.appendChild(star);
+  if (extraContainer.style.display === "none" || extraContainer.style.display === "") {
+    extraContainer.style.display = "block";
+  } else {
+    extraContainer.style.display = "none";
+  }
 }
 
-// PANEL GEÇİŞİ
-function toggleExtra() {
-  const mainBtns = document.getElementById('main-buttons');
-  const extraSec = document.getElementById('extra-section');
-  const title = document.getElementById('main-title');
+// YILDIZLAR (Sayıları artırıldı, her yöne uçacak şekilde ayarlandı)
+const stars = document.getElementById("stars");
+const STAR_COUNT = 250; 
 
-  if (extraSec.style.display === 'none' || extraSec.style.display === '') {
-    mainBtns.style.display = 'none';
-    extraSec.style.display = 'block';
-    title.innerText = 'İndirmeler';
-  } else {
-    mainBtns.style.display = 'flex';
-    extraSec.style.display = 'none';
-    title.innerText = 'Grim Client';
-  }
+for (let i = 0; i < STAR_COUNT; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+
+  const size = Math.random() * 2.5 + 1;
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+
+  // Başlangıç noktası
+  s.style.left = Math.random() * 100 + "%";
+  s.style.top = Math.random() * 100 + "%";
+
+  s.style.opacity = Math.random() * 0.6 + 0.2;
+
+  // Hedef noktası: Ekrandan dışarı (rastgele sağ/sol, aşağı/yukarı)
+  const tx = (Math.random() - 0.5) * 200 + "vw"; 
+  const ty = (Math.random() - 0.5) * 200 + "vh";
+  
+  s.style.setProperty('--tx', tx);
+  s.style.setProperty('--ty', ty);
+
+  // Süre rastgele (10 ile 25 saniye arası)
+  const duration = Math.random() * 15 + 10; 
+  s.style.animationDuration = duration + "s";
+
+  stars.appendChild(s);
 }
 </script>
 
